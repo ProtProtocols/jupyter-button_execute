@@ -11,8 +11,8 @@ class ExecuteButton(DOMWidget):
     _model_name = Unicode('ExecuteButtonModel').tag(sync=True)
     _view_module = Unicode('jupyter-button_execute').tag(sync=True)
     _model_module = Unicode('jupyter-button_execute').tag(sync=True)
-    _view_module_version = Unicode('^0.3.0').tag(sync=True)
-    _model_module_version = Unicode('^0.3.0').tag(sync=True)
+    _view_module_version = Unicode('^0.4.0').tag(sync=True)
+    _model_module_version = Unicode('^0.4.0').tag(sync=True)
 
     # Attributes
     button_text = Unicode('Execute next cells', help="The button's caption.").tag(sync=True)
