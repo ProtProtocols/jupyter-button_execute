@@ -1,10 +1,8 @@
-jupyter-button_execute
-===============================
+# jupyter-button_execute
 
 Jupyter notebook button to execute subsequent cells
 
-Installation
-------------
+## Installation
 
 To install use pip:
 
@@ -20,8 +18,7 @@ For a development installation (requires npm),
     $ jupyter nbextension install --py --symlink --sys-prefix button_execute
     $ jupyter nbextension enable --py --sys-prefix button_execute
 
-Usage
------
+## Usage
 
 To use the button in a notebook, simply execute the following lines in a Jupyter python cell:
 
@@ -31,3 +28,14 @@ To use the button in a notebook, simply execute the following lines in a Jupyter
    ExecuteButton(button_text="Run analysis", n_next_cells=3)
 ```
    
+## Changelog
+
+### Version 0.2
+
+  * Added "disabled" property
+  * Added callback "on_click" which is triggered before the subsequent
+    cells are executed.
+
+### Version 0.1
+
+  * First release

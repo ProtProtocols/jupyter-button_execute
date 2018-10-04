@@ -23,11 +23,12 @@ var ExecuteButtonModel = widgets.DOMWidgetModel.extend({
         _view_name : 'ExecuteButtonView',
         _model_module : 'jupyter-button_execute',
         _view_module : 'jupyter-button_execute',
-        _model_module_version : '0.1.0',
-        _view_module_version : '0.1.0',
+        _model_module_version : '0.2.0',
+        _view_module_version : '0.2.0',
         n_next_cells : 1,
         button_text : "Execute next cells",
-        button_style : ""
+        button_style : "",
+        disabled: false
     })
 });
 
@@ -38,7 +39,7 @@ var ExecuteButtonView = widgets.DOMWidgetView.extend({
         this.button_input = document.createElement('input');
         this.button_input.type = 'button';
         this.button_input.value = this.model.get("button_text");
-        this.button_input.disabled = false;
+        this.button_input.disabled = this.model.get("disabled");
         this.button_input.onclick = this.execute_cells.bind(this);
 
         // add the custom style
@@ -53,6 +54,7 @@ var ExecuteButtonView = widgets.DOMWidgetView.extend({
         // listen to value changes
         this.model.on('change:button_text', this.on_button_text_changed, this);
         this.model.on('change:button_style', this.on_style_changed, this);
+        this.model.on('change:disabled', this.on_button_disabled, this);
 
         // save this cell to prevent future issues
         this.my_cell = IPython.notebook.get_selected_index();
@@ -61,6 +63,9 @@ var ExecuteButtonView = widgets.DOMWidgetView.extend({
     },
 
     execute_cells: function() {
+        // tell the Python kernel that this was clicked
+        this.send({event: 'click'});
+
         var startCell = this.my_cell + 1;
         var endCell = startCell + this.model.get("n_next_cells");
 
@@ -73,6 +78,10 @@ var ExecuteButtonView = widgets.DOMWidgetView.extend({
 
     on_style_changed: function() {
         this.update_button_style();
+    },
+
+    on_button_disabled: function() {
+        this.button_input.disabled = this.model.get("disabled");
     },
 
     update_button_style: function() {
