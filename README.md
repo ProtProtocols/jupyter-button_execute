@@ -23,9 +23,19 @@ For a development installation (requires npm),
 To use the button in a notebook, simply execute the following lines in a Jupyter python cell:
 
 ``` python
+    def my_function(arg):
+       print("Hello")
+       
+       # simply disable the button by setting the 'disabled' variable
+       my_btn.disabled = True
+
    from button_execute import ExecuteButton
    # when clicking the button, the next 3 Jupyter notebook cells will be executed
-   ExecuteButton(button_text="Run analysis", n_next_cells=3)
+   my_btn = ExecuteButton(button_text="Run analysis", n_next_cells=3)
+   
+   # if you register a callback function, this function will be executed
+   # before the subsequent cells are being executed
+   my_btn.on_click(my_function)
 ```
    
 ## Changelog
