@@ -57,7 +57,7 @@ var ExecuteButtonView = widgets.DOMWidgetView.extend({
         this.model.on('change:disabled', this.on_button_disabled, this);
 
         // save this cell to prevent future issues
-        this.my_cell = IPython.notebook.get_selected_index();
+        this.my_cell = IPython.notebook.get_anchor_index(this.el);
 
         this.el.appendChild(this.button_input);
     },
