@@ -40,6 +40,10 @@ To use the button in a notebook, simply execute the following lines in a Jupyter
    
 ## Changelog
 
+### Version 0.3
+
+  * Introduced a more reliable method to detect the widget's own cell index
+
 ### Version 0.2
 
   * Added "disabled" property

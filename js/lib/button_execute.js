@@ -56,20 +56,38 @@ var ExecuteButtonView = widgets.DOMWidgetView.extend({
         this.model.on('change:button_style', this.on_style_changed, this);
         this.model.on('change:disabled', this.on_button_disabled, this);
 
-        // save this cell to prevent future issues
-        this.my_cell = IPython.notebook.get_anchor_index(this.el);
-
         this.el.appendChild(this.button_input);
+    },
+
+    get_own_cell_index: function() {
+        // get the object's cell index by finding the parents until the cell is found
+        var currentObject = $(this.el);
+        var cell = currentObject.data("cell");
+        var currentTry = 0;
+
+        while (cell == undefined) {
+            currentObject = currentObject.parent();
+            cell = currentObject.data("cell");
+            currentTry++;
+
+            if (currentTry > 20) {
+                break;
+            }
+        }
+
+        return(Jupyter.notebook.find_cell_index(cell));
     },
 
     execute_cells: function() {
         // tell the Python kernel that this was clicked
         this.send({event: 'click'});
 
-        var startCell = this.my_cell + 1;
+        var startCell = this.get_own_cell_index() + 1;
         var endCell = startCell + this.model.get("n_next_cells");
 
-        IPython.notebook.execute_cell_range(startCell, endCell);
+        console.log("[ExecuteBotton] Executing cells from " + startCell + " to " + endCell);
+
+        Jupyter.notebook.execute_cell_range(startCell, endCell);
     },
 
     on_button_text_changed: function() {

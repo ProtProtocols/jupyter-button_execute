@@ -13,12 +13,4 @@
 - To test release a new version:
 
   4. `twine upload --repository-url https://test.pypi.org/legacy/ dist/*`
-
-- To release a new version of jupyter-button_execute on NPM:
-
-```
-# clean out the `dist` and `node_modules` directories
-git clean -fdx
-npm install
-npm publish
-```
+  5. `python3 -m pip install --upgrade --index-url https://test.pypi.org/simple/ button_execute`
