@@ -3,7 +3,7 @@
   1. Update _version.py (set release version, remove 'dev')
   2. git add the _version.py file and git commit
   3. `python3 setup.py sdist bdist_wheel`
-  4. `python setup.py bdist_wheel upload`
+  4. `twine upload dist/*`
   5. `git tag -a X.X.X -m 'comment'`
   6. Update _version.py (add 'dev' and increment minor)
   7. git add and git commit
